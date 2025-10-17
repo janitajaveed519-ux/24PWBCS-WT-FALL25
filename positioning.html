@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Positioning Challenge</title>
+  <link rel="stylesheet" href="positioning.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Positioning Challenge</h1>
+  </header>
+
+  <main class="main-content">
+    <aside class="sidebar">
+      <div class="sticky-box">Sticky Sidebar 1</div>
+      <div class="sticky-box">Sticky Sidebar 2</div>
+    </aside>
+
+    <section class="content">
+      <h2>Main Content Area</h2>
+      <p>
+        This section demonstrates relative, absolute, fixed, and sticky positioning.
+        Scroll down to see how elements behave.
+      </p>
+      <button id="openModal">Open Modal</button>
+      <p style="margin-top:1000px;">Scroll end demo...</p>
+    </section>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3>Modal Dialog</h3>
+      <p>This modal is absolutely positioned in the center.</p>
+      <button id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 Positioning Layout Demo</p>
+  </footer>
+
+  <script>
+    // Simple modal open/close
+    const modal = document.getElementById('modal');
+    document.getElementById('openModal').onclick = () => modal.style.display = 'flex';
+    document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
+  </script>
+</body>
+</html>

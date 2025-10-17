@@ -1,0 +1,152 @@
+/* ===== Reset & base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --max-w: 1200px;
+  --gap: 18px;
+  --accent: #1167b1;
+  --muted: #6b7280;
+  --bg: #f7fafc;
+  --card: #fff;
+  --radius: 12px;
+}
+html,body { height:100%; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: var(--bg);
+  color: #111827;
+  display:flex;
+  justify-content:center;
+  line-height:1.5;
+  padding: 24px;
+}
+
+/* Page wrapper */
+.page { width:100%; max-width: var(--max-w); }
+
+/* Header */
+.site-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:20px;
+}
+.brand { display:flex; align-items:center; gap:12px; }
+.logo {
+  width:56px; height:56px; border-radius:10px;
+  background: linear-gradient(135deg,#fff,#e6f2ff);
+  color:var(--accent); display:flex; align-items:center; justify-content:center;
+  font-weight:800; box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+.title-block .site-title { font-size:1.15rem; color:var(--accent); }
+.title-block .subtitle { color:var(--muted); font-size:0.9rem; }
+
+/* Nav */
+.main-nav { display:flex; align-items:center; gap:14px; margin-left:auto; }
+.main-nav a { text-decoration:none; color:#0f1724; padding:8px 10px; border-radius:8px; transition: background .15s; }
+.main-nav a:hover { background: rgba(17,103,177,0.08); color:var(--accent); }
+.menu-toggle { display:none; background:transparent; border:none; font-size:1.1rem; cursor:pointer; }
+
+/* Decorative positioned elements */
+.decor { position: absolute; border-radius: 50%; opacity: .08; pointer-events:none; z-index:0; }
+.decor-1 { width: 280px; height: 280px; background: var(--accent); left: -60px; top: 60px; transform: rotate(12deg); }
+.decor-2 { width: 180px; height: 180px; background: #00a3ff; right: -40px; top: 360px; }
+
+/* Main layout (Grid) */
+main.page {
+  position: relative; /* to contain absolute decor */
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 420px; /* asymmetric on desktop */
+  gap: var(--gap);
+  align-items: center;
+  margin-bottom: var(--gap);
+}
+.hero-left { background: transparent; }
+.hero h2 { font-size: clamp(1.4rem, 2.6vw, 2.0rem); margin-bottom:10px; color: var(--accent); }
+.hero p { color: var(--muted); margin-bottom:12px; }
+.cta { display:inline-block; padding:10px 14px; background:var(--accent); color:#fff; border-radius:10px; text-decoration:none; }
+
+/* Hero image */
+.hero-img { width:100%; border-radius: 14px; object-fit: cover; display:block; }
+
+/* Work section */
+.work { margin-bottom: var(--gap); }
+.section-title { font-size:1.05rem; margin-bottom:12px; color: var(--accent); }
+
+/* ===== Projects gallery: masonry on desktop, stacked on mobile ===== */
+/* Use CSS columns for masonry-like effect on wide screens */
+.projects {
+  column-gap: 18px;
+  /* default single column (mobile) */
+  column-count: 1;
+}
+
+/* Each project must avoid breaking inside columns and use margin bottom for spacing */
+.project {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin-bottom: 18px;
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+  display: flex;
+  flex-direction: column; /* card internals use flexbox */
+}
+.project img { width: 100%; height: auto; display:block; object-fit: cover; }
+.project-body { padding: 12px 14px; display:flex; flex-direction:column; gap:8px; flex: 1 1 auto; }
+.project-body h4 { margin:0; font-size:1rem; }
+.project-body p { margin:0; color:var(--muted); font-size:0.93rem; }
+.project-tags { margin-top:auto; display:flex; gap:8px; flex-wrap:wrap; }
+.project-tags span { font-size:0.75rem; color:var(--accent); background: rgba(17,103,177,0.06); padding:6px 8px; border-radius:8px; }
+
+/* ===== Responsive breakpoints ===== */
+
+/* Tablet: switch to 2 columns (symmetric) and more spacing */
+@media (min-width: 700px) {
+  .projects { column-count: 2; }
+  .hero { grid-template-columns: 1fr 360px; }
+}
+
+/* Desktop: masonry with 3 columns, asymmetric grid for hero area already in effect */
+@media (min-width: 1100px) {
+  .projects { column-count: 3; column-gap: 22px; }
+  .hero { grid-template-columns: 1fr 420px; }
+}
+
+/* Use CSS Grid for an alternative layout on wide viewports for hero + aside if needed */
+@media (min-width: 1250px) {
+  .page { display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items:start; }
+  .hero { grid-column: 1 / 2; }
+  .work { grid-column: 1 / 2; }
+  .about, .contact { grid-column: 2 / 3; position: sticky; top: 100px; }
+}
+
+/* Navigation and layout for small screens */
+@media (max-width: 699px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { order: -1; } /* show image above text on very small screens if desired */
+  .main-nav a { display:none; } /* hide full nav */
+  .menu-toggle { display:inline-block; }
+  .main-nav.open a { display:block; padding:8px 10px; background: var(--card); border-radius:8px; margin-top:8px; }
+  .decor { display:none; } /* hide decorative shapes on small screens */
+}
+
+/* Orientation-specific rules */
+/* Landscape: slightly increase columns for more room */
+@media (orientation: landscape) and (min-width: 900px) {
+  .projects { column-count: 3; }
+  .hero h2 { font-size: clamp(1.6rem, 2.4vw, 2.4rem); }
+}
+
+/* Portrait: make images slightly taller to preserve composition */
+@media (orientation: portrait) and (max-width: 900px) {
+  .project img { height: auto; } /* keep natural */
+  .hero-img { height: 320px; object-fit: cover; }
+}
+
+/* Small visual tweaks */
+.about, .contact { background: var(--card); padding:14px; border-radius:12px; box-shadow:0 6px 18px rgba(2,6,23,0.04); margin-bottom:18px; }
+.site-footer { text-align:center; color:var(--muted); margin-top:18px; font-size:0.9rem; }

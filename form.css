@@ -1,0 +1,119 @@
+/* ===== Reset & base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --max-w: 1100px;
+  --gap: 16px;
+  --accent: #0b63b8;
+  --muted: #6b7280;
+  --card: #fff;
+}
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background:#f6f8fb;
+  color:#0f1724;
+  padding:16px;
+  display:flex;
+  justify-content:center;
+}
+.page { width:100%; max-width: var(--max-w); }
+
+/* Page heading */
+h1 { margin-bottom: 18px; font-size: 1.4rem; color:var(--accent); }
+
+/* Form layout: use Flexbox for sections */
+.form {
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+  flex-wrap: wrap; /* allow sections to wrap on smaller screens */
+}
+
+/* Each section is a flexible column box */
+.form-section {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(2,6,23,0.06);
+  min-width: 280px;
+  flex: 1 1 320px; /* grow, shrink, preferred */
+}
+
+/* Section headers */
+.form-section h2 { margin-bottom:10px; font-size:1.05rem; }
+
+/* Row groups inside a section use flex for responsive control */
+.row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+/* Fields */
+.field { display:flex; flex-direction:column; flex:1 1 160px; }
+.field.fullwidth { flex: 1 1 100%; }
+.label { font-size: 0.85rem; margin-bottom:6px; color:var(--muted); }
+
+/* Inputs (responsive sizing) */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6eefc;
+  background: #fff;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+/* Inline controls (radio group) */
+.inline-controls { display:flex; gap:10px; align-items:center; }
+.inline-controls label { font-size:0.95rem; }
+
+/* Grid helper: for multi-column forms inside a section */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap:12px; }
+
+/* Actions */
+.actions-row { display:flex; gap:12px; justify-content:flex-end; }
+.btn {
+  padding: 10px 14px; border-radius:8px; border:1px solid rgba(2,6,23,0.06); cursor:pointer;
+  background: #fff;
+}
+.btn.primary { background: var(--accent); color: #fff; border:none; }
+
+/* Invalid field style */
+.invalid { outline: 2px solid rgba(255,80,80,0.15); }
+
+/* Conditional blocks hide initially */
+.conditional { display: none; }
+
+/* ===== RESPONSIVE: Tablet & Desktop ===== */
+/* Desktop: multi-column arrangement — form sections show side-by-side */
+@media (min-width: 900px) {
+  .form { flex-wrap: nowrap; } /* show sections in one row if space allows */
+  .form-section { flex: 1 1 0; } /* equalize widths by default */
+  .form-section.personal { flex: 1.2; } /* slightly wider personal section */
+  .form-section.account { flex: 1; }
+  .form-section.prefs { flex: 0.9; }
+  .actions { flex-basis: 100%; } /* actions row below */
+}
+
+/* Larger desktop: more columns inside sections */
+@media (min-width: 1200px) {
+  .row { gap: 18px; }
+  .field { flex: 1 1 180px; }
+}
+
+/* ===== MOBILE: Stack sections and fields (single column) ===== */
+@media (max-width: 600px) {
+  .form { flex-direction: column; }
+  .form-section { width: 100%; min-width: auto; padding: 12px; }
+  .row { flex-direction: column; }
+  .grid-2 { grid-template-columns: 1fr; } /* conditional grid -> single column */
+  .actions-row { justify-content: stretch; }
+  .btn { width: 100%; }
+}

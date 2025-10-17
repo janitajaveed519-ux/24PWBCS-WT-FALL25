@@ -1,0 +1,154 @@
+/* ==============
+   Base (mobile-first)
+   ============== */
+
+/* color variables default (light) */
+:root{
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --card: #f8fafc;
+  --accent: #0b63b8;
+
+  --focus: rgba(11,103,177,0.28);
+
+  /* animation durations */
+  --duration-fast: 180ms;
+  --duration-medium: 350ms;
+}
+
+/* Layout basics */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+  padding:16px;
+}
+
+.site-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
+.controls button{ padding:8px 10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); background:transparent; cursor:pointer; }
+
+/* Cards and grid */
+.demo-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+.card{ background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(2,6,23,0.04);}
+
+/* pulse animation (for demo) */
+.pulse{
+  width: 48px; height:48px; border-radius:8px; background: linear-gradient(90deg,var(--accent), #00aaff);
+  margin-top:12px;
+  animation: pulse 1200ms ease-in-out infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity:1; }
+  50% { transform: scale(1.08); opacity:0.8; }
+  100% { transform: scale(1); opacity:1; }
+}
+
+/* Focus styles */
+:focus { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* ------------------------------
+   Dark / Light using color-scheme
+   ------------------------------ */
+
+/* Respect user's system preference by default */
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg: #0b1220;
+    --text: #e6eefc;
+    --muted: #9aa6b2;
+    --card: #071022;
+    --accent: #4fb3ff;
+    --focus: rgba(79,179,255,0.18);
+  }
+}
+
+/* Manual overrides: class-based (higher specificity than media query)
+   Useful when user toggles theme in UI. */
+:root.theme-dark {
+  --bg: #0b1220;
+  --text: #e6eefc;
+  --muted: #9aa6b2;
+  --card: #071022;
+  --accent: #4fb3ff;
+  --focus: rgba(79,179,255,0.18);
+}
+:root.theme-light {
+  /* force light vars even if OS prefers dark */
+  --bg: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --card: #f8fafc;
+  --accent: #0b63b8;
+  --focus: rgba(11,103,177,0.28);
+}
+
+/* For user agents supporting color-scheme property (helps form controls, scrollbars) */
+@supports (color: color(display-p3 1 0 0)) {
+  :root { color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { color-scheme: dark; } }
+}
+
+/* ------------------------------
+   prefers-reduced-motion
+   ------------------------------ */
+
+/* If user requests reduced motion, remove/limit animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  .pulse { animation: none !important; }
+  * { transition-duration: 0.001ms !important; transition-delay: 0 !important; animation-duration: 0.001ms !important; animation-delay: 0 !important; }
+}
+
+/* ------------------------------
+   prefers-contrast / forced-colors
+   ------------------------------ */
+
+/* Newer spec: prefers-contrast (values: more, less, no-preference) */
+@media (prefers-contrast: more) {
+  /* increase contrast: stronger text, bolder borders */
+  :root { --text: #000000; --card: #ffffff; --muted: #111827; }
+  .card { box-shadow: none; border: 2px solid currentColor; }
+}
+
+/* For legacy/Windows High Contrast / forced-colors mode */
+@media (forced-colors: active) {
+  :root { color-scheme: light dark; }
+  /* Use system color tokens where supported */
+  .card { background: ButtonFace; color: ButtonText; border: 2px solid ButtonText; }
+  .site-header { background: Canvas; color: CanvasText; }
+  /* Prevent browser from recoloring background images, if any */
+  img, svg { forced-color-adjust: none; -webkit-print-color-adjust: exact; }
+}
+
+/* ------------------------------
+   Print stylesheet
+   ------------------------------ */
+
+@media print {
+  /* Make backgrounds presentable */
+  :root { color-scheme: light; }
+  body { background: #fff; color: #000; padding: 0; }
+  .site-header, .site-footer, .controls { display: none !important; } /* hide header controls on print */
+  .content, .card { box-shadow: none !important; border: none !important; background: transparent !important; }
+  .card { page-break-inside: avoid; }
+  /* Ensure links print with their URL (good for handouts) */
+  a::after { content: " (" attr(href) ")"; font-size: 0.85em; color: #000; }
+  /* Preserve images but avoid huge sizes */
+  img { max-width: 100%; height: auto; display: block; }
+}
+
+/* ------------------------------
+   Responsive layout (small demo)
+   ------------------------------ */
+@media (min-width: 700px) {
+  .demo-grid { grid-template-columns: repeat(2, 1fr); gap:16px; }
+}
+@media (min-width: 1100px) {
+  .demo-grid { grid-template-columns: repeat(3, 1fr); gap:20px; }
+}
+
+/* End of file */

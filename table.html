@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Responsive Data Table — Task 14</title>
+  <link rel="stylesheet" href="table.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Users — Responsive Data Table</h1>
+    <p class="intro">Resize the window to see the layout change: table → cards (tablet) → stacked cards (mobile).</p>
+
+    <!-- Semantic table markup preserved for accessibility -->
+    <div class="table-wrap" aria-live="polite">
+      <table id="dataTable" class="data-table" role="table" aria-label="Users table">
+        <caption class="visually-hidden">List of users with status and last login</caption>
+        <thead>
+          <tr role="row">
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Status</th>
+            <th scope="col">Last Login</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>U001</td>
+            <td>Ali Khan</td>
+            <td>ali.khan@example.com</td>
+            <td>Student</td>
+            <td><span class="badge active">Active</span></td>
+            <td>2025-10-10</td>
+            <td>
+              <button class="btn small">View</button>
+              <button class="btn small">Edit</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>U002</td>
+            <td>Sara Ahmed</td>
+            <td>sara.ahmed@example.com</td>
+            <td>Instructor</td>
+            <td><span class="badge warning">Pending</span></td>
+            <td>2025-10-08</td>
+            <td>
+              <button class="btn small">View</button>
+              <button class="btn small">Edit</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>U003</td>
+            <td>Hamza Ali</td>
+            <td>hamza.ali@example.com</td>
+            <td>Admin</td>
+            <td><span class="badge inactive">Inactive</span></td>
+            <td>2025-09-30</td>
+            <td>
+              <button class="btn small">View</button>
+              <button class="btn small">Edit</button>
+            </td>
+          </tr>
+
+          <!-- add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    // Small helper: copy column headers into td[data-label] for card view visuals
+    (function attachDataLabels() {
+      const table = document.getElementById('dataTable');
+      if (!table) return;
+      const headers = Array.from(table.querySelectorAll('thead th')).map(h => h.textContent.trim());
+
+      // For each row, set data-label on each cell
+      table.querySelectorAll('tbody tr').forEach(row => {
+        const cells = Array.from(row.children);
+        cells.forEach((cell, i) => {
+          // Only set if not already set (idempotent)
+          if (!cell.hasAttribute('data-label')) {
+            const label = headers[i] || '';
+            cell.setAttribute('data-label', label);
+          }
+        });
+
+        // Make rows keyboard navigable in card mode by giving role and tabindex to the row container
+        // Keep semantic <tr> for screen readers; add tabindex to allow keyboard focus when needed.
+        row.setAttribute('role', 'row');
+      });
+    })();
+  </script>
+</body>
+</html>

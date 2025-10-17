@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flexbox Form Builder — Task 12</title>
+  <link rel="stylesheet" href="form.css" />
+</head>
+<body>
+  <main class="page">
+    <h1>Registration & Profile Form</h1>
+
+    <form id="profileForm" class="form" novalidate>
+      <!-- Section: Personal (flex item) -->
+      <section class="form-section personal">
+        <h2>Personal Information</h2>
+        <div class="row">
+          <label class="field">
+            <span class="label">First name</span>
+            <input type="text" name="firstName" required placeholder="Ali" />
+          </label>
+
+          <label class="field">
+            <span class="label">Last name</span>
+            <input type="text" name="lastName" required placeholder="Khan" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span class="label">Email</span>
+            <input type="email" name="email" required placeholder="name@example.com" />
+          </label>
+
+          <label class="field">
+            <span class="label">Phone</span>
+            <input type="tel" name="phone" inputmode="tel" placeholder="+92 3xx xxx xxxx" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field fullwidth">
+            <span class="label">Address</span>
+            <input type="text" name="address" placeholder="Street, City, Country" />
+          </label>
+        </div>
+      </section>
+
+      <!-- Section: Account (flex item) -->
+      <section class="form-section account">
+        <h2>Account</h2>
+
+        <div class="row">
+          <label class="field">
+            <span class="label">Username</span>
+            <input type="text" name="username" required minlength="3" />
+          </label>
+
+          <label class="field">
+            <span class="label">Password</span>
+            <input type="password" name="password" required minlength="6" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span class="label">Role</span>
+            <select name="role" id="roleSelect" >
+              <option value="student">Student</option>
+              <option value="instructor">Instructor</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="label">Receive newsletters?</span>
+            <div class="inline-controls">
+              <label><input type="radio" name="newsletter" value="yes" checked> Yes</label>
+              <label><input type="radio" name="newsletter" value="no"> No</label>
+            </div>
+          </label>
+        </div>
+
+        <!-- Conditional: Instructor fields -->
+        <div id="instructorFields" class="conditional">
+          <div class="row">
+            <label class="field">
+              <span class="label">Department</span>
+              <input type="text" name="department" placeholder="Computer Science"/>
+            </label>
+            <label class="field">
+              <span class="label">Office</span>
+              <input type="text" name="office" placeholder="Bldg 3, Room 210" />
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Preferences (flex item) -->
+      <section class="form-section prefs">
+        <h2>Preferences & Availability</h2>
+
+        <div class="row grid-2">
+          <label class="field">
+            <span class="label">Available from</span>
+            <input type="date" name="availableFrom" />
+          </label>
+
+          <label class="field">
+            <span class="label">Preferred contact</span>
+            <select name="contactPref">
+              <option>email</option>
+              <option>phone</option>
+              <option>whatsapp</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field fullwidth">
+            <span class="label">Short bio</span>
+            <textarea name="bio" rows="4" placeholder="A short intro..."></textarea>
+          </label>
+        </div>
+      </section>
+
+      <!-- Section: Submit (full width) -->
+      <section class="form-section actions">
+        <div class="row actions-row">
+          <button type="submit" class="btn primary">Submit</button>
+          <button type="reset" class="btn">Reset</button>
+        </div>
+      </section>
+    </form>
+  </main>
+
+<script>
+  // Conditional fields: show instructor fields when Role === "instructor"
+  const roleSelect = document.getElementById('roleSelect');
+  const instructorFields = document.getElementById('instructorFields');
+
+  function updateConditional() {
+    const isInstructor = roleSelect.value === 'instructor';
+    instructorFields.style.display = isInstructor ? 'block' : 'none';
+    instructorFields.setAttribute('aria-hidden', (!isInstructor).toString());
+  }
+  roleSelect.addEventListener('change', updateConditional);
+  window.addEventListener('load', updateConditional);
+
+  // Optional: simple client-side validation feedback
+  const form = document.getElementById('profileForm');
+  form.addEventListener('submit', (e) => {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      // find first invalid field and focus
+      const invalid = form.querySelector(':invalid');
+      if (invalid) {
+        invalid.focus();
+        invalid.classList.add('invalid');
+      }
+      alert('Please fill the required fields correctly.');
+    }
+  });
+</script>
+</body>
+</html>

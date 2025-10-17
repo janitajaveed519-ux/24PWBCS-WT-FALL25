@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UET — Mobile First Landing (CS 224L)</title>
+
+  <!-- Preload the hero image (use webp if available) -->
+  <link rel="preload" as="image" href="hero-small.webp" media="(max-width:600px)">
+  <link rel="preload" as="image" href="hero-large.webp" media="(min-width:601px)">
+
+  <!-- Important meta for SEO / performance -->
+  <meta name="description" content="Mobile-first landing page example for CS 224L — responsive images, progressive enhancement, and mobile performance.">
+
+  <!-- Inline critical (mobile-first) CSS -->
+  <style>
+    /* ====== Mobile-first base ====== */
+    :root{
+      --accent:#0b63b8;
+      --bg:#fbfdff;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --gap:16px;
+      --max-w:1000px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:var(--bg);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:16px;
+      display:flex;
+      justify-content:center;
+    }
+    .page{width:100%; max-width:var(--max-w)}
+
+/* Header / nav (mobile-first) */
+.header{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:12px 8px;
+}
+.brand{display:flex; gap:10px; align-items:center}
+.logo{
+  width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#fff,#e6f4ff);
+  display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);
+}
+.site-title{font-size:1.05rem;font-weight:700}
+.nav-toggle{background:transparent;border:0;font-size:1.4rem;cursor:pointer}
+
+/* Mobile nav (hidden by default) */
+.nav{display:none; flex-direction:column; gap:8px; margin-top:12px}
+.nav a{display:block;text-decoration:none;color:#0f1724;padding:10px;border-radius:8px;background:var(--card); box-shadow:0 4px 12px rgba(2,6,23,0.04)}
+
+/* Hero (stacked on mobile) */
+.hero{
+  margin-top:12px;
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 22px rgba(2,6,23,0.04);
+}
+.hero-inner{display:flex;flex-direction:column;gap:12px;padding:16px}
+.hero-title{font-size:1.25rem;font-weight:800;color:var(--accent);margin:0}
+.hero-lead{color:var(--muted);margin:6px 0 12px;font-size:0.95rem}
+.hero-cta{display:inline-block;padding:10px 14px;background:var(--accent);color:#fff;border-radius:10px;text-decoration:none;font-weight:600}
+
+/* Responsive image styles */
+.hero-media img{width:100%;height:auto;display:block;object-fit:cover}
+
+/* Features / grid (mobile: single column) */
+.features{display:grid;gap:12px;margin-top:14px}
+.feature{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 4px 14px rgba(2,6,23,0.04)}
+.feature h3{margin:0 0 8px;font-size:1rem}
+.feature p{margin:0;color:var(--muted);font-size:0.95rem}
+
+/* Footer */
+.footer{margin-top:18px;text-align:center;color:var(--muted);font-size:0.9rem;padding:12px}
+
+/* Small utility */
+.kicker{font-size:0.78rem;color:var(--muted);font-weight:600;letter-spacing:0.6px;text-transform:uppercase}
+
+/* ====== Progressive enhancement for larger screens ====== */
+@media (min-width: 700px){
+  .page{padding:20px}
+  .header{padding:18px}
+  .nav{display:flex;flex-direction:row;margin-top:0}
+  .nav a{background:transparent;padding:8px 10px}
+  .hero-inner{flex-direction:row;align-items:center;padding:22px}
+  .hero-media{flex:1 1 50%;padding-left:12px}
+  .hero-copy{flex:1 1 50%;padding-right:12px}
+  .hero-title{font-size:1.7rem}
+  .features{grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+}
+
+/* Desktop wide: more layout polish */
+@media (min-width:1100px){
+  .page{max-width:1200px}
+  .hero-inner{gap:24px;padding:28px}
+  .hero-title{font-size:2rem}
+  .hero-lead{font-size:1.05rem}
+  .features{gap:20px}
+}
+
+/* Orientation specific small tweaks */
+@media (orientation: landscape) and (max-width:900px){
+  .hero-inner{flex-direction:row}
+  .hero-copy{padding-right:8px}
+}
+
+/* Accessibility focus */
+a:focus, button:focus { outline: 3px solid rgba(11,103,177,0.18); outline-offset: 3px; }
+  </style>
+
+  <!-- Defer non-critical fonts or use system fonts: font-display recommended if using web font -->
+</head>
+<body>
+  <div class="page" id="page">
+    <header class="header" role="banner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">UET</div>
+        <div>
+          <div class="kicker">CS 224L</div>
+          <div class="site-title">UET — Web Technologies</div>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav">☰</button>
+        <div class="nav" id="mainNav">
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO: responsive image + text -->
+    <section class="hero" role="region" aria-labelledby="heroTitle">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="kicker">Department of Computer Science</p>
+          <h1 id="heroTitle" class="hero-title">Mobile-first design for fast, accessible websites</h1>
+          <p class="hero-lead">A concise landing experience built with performance and progressive enhancement in mind — perfect for students of CS 224L.</p>
+          <p><a class="hero-cta" href="#features">Explore features</a></p>
+        </div>
+
+        <!-- Responsive image element with srcset + sizes + lazy loading -->
+        <div class="hero-media" aria-hidden="false">
+          <picture>
+            <!-- modern formats first -->
+            <source srcset="hero-large.webp 1200w, hero-medium.webp 800w, hero-small.webp 480w" type="image/webp" sizes="(min-width:1100px) 800px, (min-width:700px) 50vw, 100vw">
+            <source srcset="hero-large.jpg 1200w, hero-medium.jpg 800w, hero-small.jpg 480w" type="image/jpeg" sizes="(min-width:1100px) 800px, (min-width:700px) 50vw, 100vw">
+            <!-- fallback -->
+            <img src="hero-small.jpg" alt="Aerial view of university campus" loading="lazy" width="1200" height="700">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features" aria-labelledby="featuresTitle">
+      <div class="feature" role="article">
+        <h3>Responsive Images</h3>
+        <p>Use <code>picture</code>, <code>srcset</code>, <code>sizes</code> and modern formats (WebP) to reduce bytes on mobile.</p>
+      </div>
+
+      <div class="feature" role="article">
+        <h3>Accessible Markup</h3>
+        <p>Semantic elements, meaningful headings and ARIA where needed help screen readers and search engines.</p>
+      </div>
+
+      <div class="feature" role="article">
+        <h3>Progressive Enhancement</h3>
+        <p>Start with a fast baseline for mobile; add more layout, typography and media for larger screens.</p>
+      </div>
+    </section>
+
+    <footer class="footer" role="contentinfo">
+      <small>CS 224L — Web Technologies • Department of Computer Science • UET Peshawar</small>
+    </footer>
+  </div>
+
+  <!-- Minimal JS: nav toggle + performance-friendly (deferred, tiny) -->
+  <script>
+    (function(){
+      const navToggle = document.getElementById('navToggle');
+      const mainNav = document.getElementById('mainNav');
+
+      navToggle.addEventListener('click', () => {
+        const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.setAttribute('aria-expanded', String(!expanded));
+        // toggle visual nav
+        if (mainNav.style.display === 'flex' || mainNav.classList.contains('open')) {
+          mainNav.style.display = 'none';
+          mainNav.classList.remove('open');
+        } else {
+          // show as column on mobile
+          mainNav.style.display = 'flex';
+          mainNav.classList.add('open');
+        }
+      });
+
+      // Close mobile nav on outside tap (small enhancement)
+      document.addEventListener('click', (e) => {
+        if (!document.getElementById('page').contains(e.target)) return;
+        if (mainNav.classList.contains('open') && !mainNav.contains(e.target) && e.target !== navToggle) {
+          mainNav.style.display = 'none';
+          mainNav.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Media Query Demonstration</title>
+  <link rel="stylesheet" href="media.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">MQ Demo</div>
+
+    <!-- Full nav (desktop) + hamburger -->
+    <nav class="nav" id="nav">
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <button id="hamburger" class="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
+
+    <!-- Breakpoint indicator -->
+    <div id="bpIndicator" class="bp-indicator" aria-live="polite">
+      Width: <span id="width">0</span>px — <strong id="bp">xs</strong>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Typography scaling demo -->
+    <section class="typography card">
+      <h1 class="display">Typography scaling</h1>
+      <p class="lead">This paragraph uses fluid scaling for comfortable reading across devices.</p>
+      <p>Body text should remain readable at all breakpoints; headings scale up at larger screens.</p>
+    </section>
+
+    <!-- Responsive grid layout -->
+    <section class="layout card">
+      <h2>Responsive Layout</h2>
+      <div class="grid">
+        <div class="item">Widget 1</div>
+        <div class="item">Widget 2</div>
+        <div class="item">Widget 3</div>
+        <div class="item">Widget 4</div>
+        <div class="item">Widget 5</div>
+        <div class="item">Widget 6</div>
+      </div>
+    </section>
+
+    <!-- Navigation pattern explanation -->
+    <section class="nav-demo card">
+      <h2>Navigation Pattern</h2>
+      <p>Resize to see the nav change from full links → compact links → hamburger menu. Try it now.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>Media Query Demo — breakpoints: 480 / 768 / 1024 / 1280 px</small>
+  </footer>
+
+<script>
+  // Update breakpoint indicator and widths
+  const widthEl = document.getElementById('width');
+  const bpEl = document.getElementById('bp');
+  const update = () => {
+    const w = Math.round(window.innerWidth);
+    widthEl.textContent = w;
+    let label = 'xs';
+    if (w >= 1280) label = 'xl (≥1280px)';
+    else if (w >= 1024) label = 'lg (≥1024px)';
+    else if (w >= 768) label = 'md (≥768px)';
+    else if (w >= 480) label = 'sm (≥480px)';
+    bpEl.textContent = label;
+  };
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+
+  // Mobile nav toggle
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('nav');
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', (!expanded).toString());
+    nav.classList.toggle('open');
+  });
+</script>
+</body>
+</html>

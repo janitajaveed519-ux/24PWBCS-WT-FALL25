@@ -1,0 +1,82 @@
+/* Basic setup */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+  line-height: 1.5;
+  margin: 20px;
+}
+
+.header, .footer {
+  text-align: center;
+  background: #003366;
+  color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Container layout */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Shapes */
+.shape {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  background: #6ca0ff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: transform 0.5s ease-in-out;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Transform demos */
+.rotate-box:hover {
+  transform: rotate(45deg);
+  background: #ff6f61;
+}
+
+.scale-box:hover {
+  transform: scale(1.4);
+  background: #4caf50;
+}
+
+.translate-box:hover {
+  transform: translate(40px, -20px);
+  background: #f39c12;
+}
+
+.skew-box:hover {
+  transform: skew(20deg, 10deg);
+  background: #9b59b6;
+}
+
+.combo-box:hover {
+  transform: translate(20px, 20px) rotate(20deg) scale(1.2) skew(5deg);
+  background: #00bcd4;
+}
+
+/* Responsive (simpler transforms) */
+@media (max-width: 600px) {
+  .shape:hover {
+    transform: none;
+    background: #6ca0ff; /* disable heavy effects for small screens */
+  }
+}

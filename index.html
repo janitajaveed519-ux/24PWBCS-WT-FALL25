@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Display Property Showcase</title>
+  <link rel="stylesheet" href="base.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Display Property Showcase</h1>
+    <nav class="main-nav">
+      <a class="nav-item" href="#">Home</a>
+      <a class="nav-item" href="#">About</a>
+      <a class="nav-item" href="#">Gallery</a>
+      <a class="nav-item" href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="block-inline" class="card">
+      <h2>Block vs Inline vs Inline-block</h2>
+      <div class="demo-block">I am a &lt;div&gt; (display: block)</div>
+      <span class="demo-inline">I am a &lt;span&gt; (display: inline)</span>
+      <span class="demo-inline">Inline sits beside me</span>
+      <div class="demo-inline-block">I am inline-block (width + height apply)</div>
+      <div class="demo-inline-block">Inline-block 2</div>
+    </section>
+
+    <section id="table-like" class="card">
+      <h2>Table display without table markup</h2>
+      <div class="table">
+        <div class="row">
+          <div class="cell">Name</div>
+          <div class="cell">Age</div>
+          <div class="cell">City</div>
+        </div>
+        <div class="row">
+          <div class="cell">Ali</div>
+          <div class="cell">21</div>
+          <div class="cell">Peshawar</div>
+        </div>
+        <div class="row">
+          <div class="cell">Sara</div>
+          <div class="cell">22</div>
+          <div class="cell">Lahore</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="responsive" class="card">
+      <h2>Responsive display with media queries</h2>
+      <div class="responsive-boxes">
+        <div class="box">Box 1</div>
+        <div class="box">Box 2</div>
+        <div class="box">Box 3</div>
+      </div>
+    </section>
+
+    <section id="hidden-demo" class="card">
+      <h2>Hidden elements at different breakpoints</h2>
+      <p class="show-sm-hide-md">Visible on small, hidden on medium+</p>
+      <p class="hide-sm show-md">Hidden on small, visible on medium+</p>
+      <p class="hide-all-print">Hidden on screen-print (example)</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>Lab: Display Properties — Mobile first</small>
+  </footer>
+</body>
+</html>

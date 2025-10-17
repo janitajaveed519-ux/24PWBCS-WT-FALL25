@@ -1,0 +1,163 @@
+/* Reset & base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --gap: 16px;
+  --bg: #f6f8fa;
+  --card: #ffffff;
+  --accent: #0b66c3;
+  --muted: #6b7280;
+}
+/* Base typography using fluid scaling */
+html { font-size: 16px; } /* fallback */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #111827;
+  line-height: 1.5;
+  padding: 16px;
+}
+
+/* Simple header */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card);
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+}
+.brand { font-weight: 700; color: var(--accent); font-size: 1.05rem; }
+
+/* Nav (desktop) */
+.nav {
+  display: flex;
+  gap: 14px;
+  margin-left: auto;
+}
+.nav a {
+  text-decoration: none;
+  color: #0f1724;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background .15s, color .15s;
+}
+.nav a:hover { background: rgba(11,102,195,0.08); color: var(--accent); }
+
+/* Hamburger (hidden on large) */
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Breakpoint indicator */
+.bp-indicator {
+  margin-left: 12px;
+  background: #eef6ff;
+  color: var(--accent);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: .92rem;
+}
+
+/* Container & cards */
+.container {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1fr;
+}
+.card {
+  background: var(--card);
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(2,6,23,0.06);
+}
+
+/* Typography scaling examples */
+/* fluid responsive heading: clamp(min, preferred, max) */
+.display { font-size: clamp(1.3rem, 2.4vw + 0.8rem, 2.4rem); margin-bottom: 8px; }
+.lead { font-size: clamp(1rem, 1.6vw + .2rem, 1.15rem); color: var(--muted); }
+
+/* Grid layout responsive */
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr; /* xs: 1 column */
+}
+.item {
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #eef2ff;
+  text-align: center;
+  font-weight:600;
+}
+
+/* Navigation pattern notes (visual) */
+.nav-demo p { color: var(--muted); }
+
+/* ---------- MEDIA QUERIES (breakpoints) ---------- */
+
+/* Small screens >=480px (sm) -> 2-column-ish compact wide items */
+@media (min-width: 480px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .nav a { padding: 9px 12px; }
+}
+
+/* Medium screens >=768px (md) -> 2 columns + larger typography */
+@media (min-width: 768px) {
+  .container { grid-template-columns: 1fr 320px; grid-auto-rows: auto; align-items: start; }
+  .layout { grid-column: 1 / -1; } /* not necessary here, flexible */
+  .display { font-size: clamp(1.5rem, 1.6vw + 1rem, 3rem); }
+  .nav { display:flex; }
+  .hamburger { display: none; }
+}
+
+/* Large screens >=1024px (lg) -> 3-column grid */
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .container { grid-template-columns: 1fr 360px; }
+  .bp-indicator { font-size: .95rem; }
+}
+
+/* Extra-large >=1280px (xl) -> wider spacing */
+@media (min-width: 1280px) {
+  body { padding: 24px; }
+  .container { gap: 24px; }
+  .grid { gap: 16px; }
+}
+
+/* ---------- NAV pattern changes: smaller than 768px => hamburger ---------- */
+@media (max-width: 767px) {
+  .nav { display: none; }           /* hide full nav */
+  .hamburger { display: inline-flex; margin-left: auto; } /* show hamburger */
+  .bp-indicator { margin-left: 8px; }
+  /* mobile menu when open */
+  .nav.open {
+    display: flex;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--card);
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+  }
+}
+
+/* ---------- Typography scaling demo: step changes ---------- */
+@media (min-width: 480px) {
+  .lead { font-size: 1.02rem; }
+}
+@media (min-width: 1024px) {
+  .lead { font-size: 1.12rem; }
+  .display { font-weight: 800; }
+}

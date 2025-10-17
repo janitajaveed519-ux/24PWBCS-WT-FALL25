@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Float-Based Magazine Layout</title>
+  <link rel="stylesheet" href="magazine.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Float-Based Magazine Layout</h1>
+  </header>
+
+  <main class="container">
+    <aside class="sidebar">
+      <h2>Sidebar</h2>
+      <p>Links or ads can go here. This sidebar is floated right.</p>
+    </aside>
+
+    <article class="content">
+      <h2>Main Article</h2>
+      <img src="https://via.placeholder.com/150" alt="sample" class="float-left">
+      <p>
+        This paragraph text wraps around the image because the image is floated
+        to the left. Float allows text to flow naturally around other elements,
+        creating a magazine-style look.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer commodo,
+        nibh in laoreet tincidunt, arcu eros porta neque, at ultrices leo justo
+        sed sem.
+      </p>
+      <img src="https://via.placeholder.com/120" alt="float-right example" class="float-right">
+      <p>
+        Here is another image floated to the right. On large screens, both floats
+        make the layout look like a print magazine.
+      </p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Float Layout Demo</p>
+  </footer>
+</body>
+</html>

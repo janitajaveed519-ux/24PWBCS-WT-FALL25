@@ -1,0 +1,102 @@
+/* Mobile-first base */
+:root{
+  --gap: 12px;
+  --card-bg: #fff;
+  --muted: #666;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: system-ui, Arial, sans-serif;
+  margin:16px;
+  background:#f4f6f8;
+  color:#222;
+  line-height:1.4;
+}
+
+/* Header + nav */
+.site-header { text-align:center; margin-bottom:16px; }
+.main-nav { margin-top:8px; }
+.nav-item {
+  display: inline-block; /* horizontal on mobile too */
+  padding:8px 10px;
+  text-decoration:none;
+  border-radius:6px;
+}
+
+/* Cards for sections */
+.card {
+  background:var(--card-bg);
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Block, inline, inline-block examples */
+.demo-block {
+  display:block;
+  background:#eef;
+  padding:8px;
+  margin-bottom:8px;
+}
+.demo-inline {
+  display:inline;
+  margin-right:8px;
+}
+.demo-inline-block {
+  display:inline-block;
+  padding:10px;
+  margin:6px 6px 6px 0;
+  min-width:110px; /* shows width applies */
+  background:#fdefde;
+}
+
+/* Table-like layout using display: table */
+.table { display: table; width:100%; border-collapse: collapse; margin-top:8px; }
+.row { display: table-row; }
+.cell {
+  display: table-cell;
+  padding:8px;
+  border:1px solid #eee;
+}
+
+/* Responsive boxes (flex behavior via display changes) */
+.responsive-boxes { display:block; } /* stacks on mobile */
+.box {
+  margin:6px 0;
+  padding:14px;
+  background:#e8f7ff;
+  border-radius:6px;
+}
+
+/* Hidden / show utility classes (mobile-first) */
+.hide-sm { display:none; }      /* hidden by default on smallest screens */
+.show-sm-hide-md { display:block; } /* visible on mobile by default */
+.hide-all-print { display:block; }
+
+/* Media queries: tablet and up */
+@media (min-width:768px) {
+  .responsive-boxes { display:flex; gap:var(--gap); } /* side by side on tablet+ */
+  .box { flex:1; margin:0; }
+
+  /* Navigation becomes horizontal inline (already inline-block) and we add spacing */
+  .main-nav { display:flex; justify-content:center; gap:8px; }
+
+  /* utility toggles */
+  .hide-sm { display:block; }     /* now visible on medium screens */
+  .show-sm-hide-md { display:none; } /* hide on medium+ */
+  .hide-md { display:none; }      /* example: hidden at md+ */
+}
+
+/* Desktop */
+@media (min-width:1024px) {
+  .demo-inline-block { min-width:140px; }
+  .site-header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+}
+
+/* Print-specific */
+@media print {
+  .hide-all-print { display:none; }
+  body { background: #fff; color: #000; }
+}
